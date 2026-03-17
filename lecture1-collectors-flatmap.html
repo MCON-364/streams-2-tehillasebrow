@@ -1382,39 +1382,6 @@
   When you need to carry <em>two</em> pieces of data through a flatMap, wrapping them in a <code>Map.Entry</code> (or a record) is a clean, allocation-light approach. This avoids defining throwaway classes.
 </div>
 
-<!-- ===== EXERCISES ===== -->
-<h2><span class="num">3.</span> Exercises</h2>
-
-<div class="exercise">
-  <p><strong>Exercise 1 — groupingBy with downstream</strong></p>
-  <ol>
-    <li>Group students by major and find the <em>maximum</em> GPA in each group. <em>Hint: <code>Collectors.maxBy(...)</code></em></li>
-    <li>Group students by major and collect a <em>sorted set</em> of their names. <em>Hint: use <code>mapping</code> with <code>toCollection(TreeSet::new)</code></em></li>
-  </ol>
-</div>
-
-<div class="exercise">
-  <p><strong>Exercise 2 — toMap</strong></p>
-  <ol>
-    <li>Create a map of <code>studentName → numberOfCoursesEnrolled</code>.</li>
-    <li>Create a map of <code>major → totalEnrollments</code> (sum of all courses across all students in that major). You'll need a merge function.</li>
-  </ol>
-</div>
-
-<div class="exercise">
-  <p><strong>Exercise 3 — flatMap</strong></p>
-  <ol>
-    <li>Find the <em>most popular course</em> — the one that appears in the most students' enrollment lists. Return the course code and count.</li>
-    <li>Find all pairs of students who share at least one course. Return a <code>Set&lt;String&gt;</code> of descriptions like <code>"Alice &amp; Bob both take CS101"</code>.</li>
-  </ol>
-</div>
-
-<div class="exercise">
-  <p><strong>Exercise 4 — Challenge: multi-level grouping</strong></p>
-  <ol>
-    <li>Group students first by major, then within each major by whether they are honors (GPA ≥ 3.5). The result type should be <code>Map&lt;String, Map&lt;Boolean, List&lt;Student&gt;&gt;&gt;</code>. <em>Hint: nested <code>groupingBy</code> and <code>partitioningBy</code>.</em></li>
-  </ol>
-</div>
 
 
 <div class="nav-footer">
