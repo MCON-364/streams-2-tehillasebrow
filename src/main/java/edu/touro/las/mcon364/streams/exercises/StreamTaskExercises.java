@@ -1,7 +1,9 @@
 package edu.touro.las.mcon364.streams.exercises;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -17,7 +19,8 @@ public class StreamTaskExercises {
      * Return the descriptions of all HIGH priority tasks in encounter order.
      */
     public List<String> highPriorityDescriptions(List<Task> tasks) {
-        throw new UnsupportedOperationException("TODO");
+
+        return tasks.stream().filter(task -> task.priority()==Priority.HIGH).map(Task::description).toList();
     }
 
     /**
@@ -25,7 +28,9 @@ public class StreamTaskExercises {
      * Return the number of tasks in each status.
      */
     public Map<Status, Long> countByStatus(List<Task> tasks) {
-        throw new UnsupportedOperationException("TODO");
+
+       return tasks.stream()
+               .collect(Collectors.groupingBy(Task::status, Collectors.counting()));
     }
 
     /**
@@ -33,7 +38,7 @@ public class StreamTaskExercises {
      * Group tasks by priority, but keep only task descriptions.
      */
     public Map<Priority, List<String>> descriptionsByPriority(List<Task> tasks) {
-        throw new UnsupportedOperationException("TODO");
+        return tasks.stream().collect(Collectors.groupingBy(Task::priority, Collectors.mapping(Task::description, Collectors.toList())));
     }
 
     /**
@@ -42,7 +47,8 @@ public class StreamTaskExercises {
      * The map keys should be true and false.
      */
     public Map<Boolean, List<Task>> partitionByDone(List<Task> tasks) {
-        throw new UnsupportedOperationException("TODO");
+        return tasks.stream()
+                .collect(Collectors.partitioningBy(task->task.status()==Status.DONE));
     }
 
     /**
@@ -50,7 +56,9 @@ public class StreamTaskExercises {
      * Count how many tasks are DONE vs not DONE.
      */
     public Map<Boolean, Long> countDonePartition(List<Task> tasks) {
-        throw new UnsupportedOperationException("TODO");
+
+        return tasks.stream()
+                .collect(Collectors.partitioningBy(task->task.status()==Status.DONE, Collectors.counting()));
     }
 
     /**
@@ -58,15 +66,21 @@ public class StreamTaskExercises {
      * First group by status, then by priority.
      */
     public Map<Status, Map<Priority, List<Task>>> groupByStatusThenPriority(List<Task> tasks) {
-        throw new UnsupportedOperationException("TODO");
+       return tasks.stream().collect(Collectors.groupingBy(Task::status, Collectors.groupingBy(Task::priority)));
     }
 
     /**
      * Grouping + mapping + collectingAndThen:
      * Group by status and return alphabetically sorted descriptions for each status.
      */
+    //this one was hard and I had to use AI for it, but I did do most of it
     public Map<Status, List<String>> sortedDescriptionsByStatus(List<Task> tasks) {
-        throw new UnsupportedOperationException("TODO");
+        return tasks.stream()
+                .collect(Collectors.groupingBy(Task::status,Collectors.collectingAndThen(
+                                Collectors.mapping(Task::description, Collectors.toList()), list->{list.sort(String::compareTo);
+                                return list; } )));
+
+
     }
 
     /**
