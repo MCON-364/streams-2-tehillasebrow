@@ -64,7 +64,7 @@ public class StreamTaskExercises {
      * First group by status, then by priority.
      */
     public Map<Status, Map<Priority, List<Task>>> groupByStatusThenPriority(List<Task> tasks) {
-       tasks.stream().collect(Collectors.groupingBy(Task::status), C).
+       return tasks.stream().collect(Collectors.groupingBy(Task::status, Collectors.groupingBy(Task::priority)));
     }
 
     /**
@@ -72,7 +72,7 @@ public class StreamTaskExercises {
      * Group by status and return alphabetically sorted descriptions for each status.
      */
     public Map<Status, List<String>> sortedDescriptionsByStatus(List<Task> tasks) {
-        throw new UnsupportedOperationException("TODO");
+        return tasks.stream()
     }
 
     /**
