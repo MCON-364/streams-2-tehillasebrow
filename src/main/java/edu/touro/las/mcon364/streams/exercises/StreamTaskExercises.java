@@ -73,11 +73,14 @@ public class StreamTaskExercises {
      * Grouping + mapping + collectingAndThen:
      * Group by status and return alphabetically sorted descriptions for each status.
      */
+    //this one was hard and I had to use AI for it, but I did do most of it
     public Map<Status, List<String>> sortedDescriptionsByStatus(List<Task> tasks) {
         return tasks.stream()
-                .collect(Collectors
-                        .groupingBy(Task::status,
-                                Collectors.mapping(Task::description, Collectors.toCollection(ArrayList::new))));
+                .collect(Collectors.groupingBy(Task::status,Collectors.collectingAndThen(
+                                Collectors.mapping(Task::description, Collectors.toList()), list->{list.sort(String::compareTo);
+                                return list; } )));
+
+
     }
 
     /**
