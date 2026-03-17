@@ -1,7 +1,9 @@
 package edu.touro.las.mcon364.streams.exercises;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -73,6 +75,9 @@ public class StreamTaskExercises {
      */
     public Map<Status, List<String>> sortedDescriptionsByStatus(List<Task> tasks) {
         return tasks.stream()
+                .collect(Collectors
+                        .groupingBy(Task::status,
+                                Collectors.mapping(Task::description, Collectors.toCollection(ArrayList::new))));
     }
 
     /**
